@@ -1,0 +1,32 @@
+{
+  "name": "mohamed-hossam-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "wrangler dev",
+    "deploy": "astro build && wrangler deploy",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "latest",
+    "@astrojs/react": "latest",
+    "@fontsource/inter": "latest",
+    "@fontsource/jetbrains-mono": "latest",
+    "@lucide/astro": "latest",
+    "@tailwindcss/postcss": "latest",
+    "astro": "latest",
+    "framer-motion": "latest",
+    "lucide-react": "latest",
+    "postcss": "latest",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest"
+  }
+}

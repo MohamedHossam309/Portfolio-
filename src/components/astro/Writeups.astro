@@ -1,0 +1,52 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { FileText, Clock, Tag } from '@lucide/astro';
+---
+
+<section id="writeups" class="py-20">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionHeader title="Writeups" subtitle="Technical Intelligence Reports" />
+
+    <div class="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+      <!-- Placeholder 1 -->
+      <div class="glass-card rounded-lg p-5 space-y-3 border-dashed border-border-subtle opacity-60">
+        <div class="flex items-center gap-2">
+          <FileText class="w-4 h-4 text-text-dark" />
+          <span class="font-mono text-[10px] text-text-dark uppercase tracking-wider">Intel Report</span>
+        </div>
+        <h3 class="text-text-muted font-medium">[Add article — e.g. Web Application Security Concepts]</h3>
+        <p class="text-xs text-text-dark">
+          Future topics: CCNA/networking notes, web app security concepts, Linux fundamentals for security, DEPI track notes, PortSwigger write-ups.
+        </p>
+        <div class="flex items-center gap-3 pt-1">
+          <span class="flex items-center gap-1 font-mono text-[10px] text-text-dark">
+            <Clock class="w-3 h-3" /> — min read
+          </span>
+          <span class="flex items-center gap-1 font-mono text-[10px] text-text-dark">
+            <Tag class="w-3 h-3" /> Security
+          </span>
+        </div>
+      </div>
+
+      <!-- Placeholder 2 -->
+      <div class="glass-card rounded-lg p-5 space-y-3 border-dashed border-border-subtle opacity-60">
+        <div class="flex items-center gap-2">
+          <FileText class="w-4 h-4 text-text-dark" />
+          <span class="font-mono text-[10px] text-text-dark uppercase tracking-wider">Intel Report</span>
+        </div>
+        <h3 class="text-text-muted font-medium">[Add article — e.g. DEPI Training Notes]</h3>
+        <p class="text-xs text-text-dark">
+          Write-ups, lab walkthroughs, and security research notes will appear here as they're completed.
+        </p>
+        <div class="flex items-center gap-3 pt-1">
+          <span class="flex items-center gap-1 font-mono text-[10px] text-text-dark">
+            <Clock class="w-3 h-3" /> — min read
+          </span>
+          <span class="flex items-center gap-1 font-mono text-[10px] text-text-dark">
+            <Tag class="w-3 h-3" /> Training
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

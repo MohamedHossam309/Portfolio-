@@ -1,0 +1,64 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { technicalSkills, softSkills } from '../../data/portfolio';
+import { Network, Monitor, Code, Wrench, Brain } from '@lucide/astro';
+
+const iconMap: Record<string, any> = {
+  Network,
+  Monitor,
+  Code,
+  Wrench,
+};
+---
+
+<section id="skills" class="py-20">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionHeader title="Skills" subtitle="Technical Capabilities & Competencies" />
+
+    <!-- Technical Skills -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      {technicalSkills.map((skill) => {
+        const IconComponent = iconMap[skill.icon] || Code;
+        return (
+          <div class="glass-card glass-card-hover rounded-lg p-5 transition-colors duration-200 group">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-8 h-8 rounded-lg bg-accent-red/10 flex items-center justify-center group-hover:bg-accent-red/20 transition-colors">
+                <IconComponent class="w-4 h-4 text-accent-red" />
+              </div>
+              <h3 class="font-mono text-sm text-text-primary">{skill.category}</h3>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5">
+              {skill.items.map((item) => (
+                <span class="font-mono text-[10px] px-2 py-1 rounded bg-secondary border border-border-subtle text-text-muted hover:text-text-secondary hover:border-border-hover transition-colors">
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            {skill.note && (
+              <p class="mt-3 font-mono text-[10px] text-text-dark italic">
+                ⓘ {skill.note}
+              </p>
+            )}
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Soft Skills -->
+    <div class="glass-card rounded-lg p-5">
+      <div class="flex items-center gap-2 mb-4">
+        <Brain class="w-4 h-4 text-accent-cyan" />
+        <h3 class="font-mono text-sm text-text-primary">Soft Skills</h3>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        {softSkills.map((skill) => (
+          <span class="font-mono text-xs px-3 py-1.5 rounded-full border border-border-subtle text-text-secondary bg-secondary hover:border-accent-cyan/30 hover:text-accent-cyan transition-colors duration-200">
+            {skill}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

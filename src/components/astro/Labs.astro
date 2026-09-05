@@ -1,0 +1,36 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { FlaskConical, Trophy } from '@lucide/astro';
+---
+
+<section id="labs" class="py-20">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionHeader title="Labs & CTFs" subtitle="Hands-On Security Challenges" />
+
+    <div class="max-w-2xl mx-auto">
+      <div class="glass-card rounded-lg p-8 text-center space-y-4">
+        <div class="w-14 h-14 rounded-xl bg-secondary border border-border-subtle flex items-center justify-center mx-auto">
+          <FlaskConical class="w-7 h-7 text-text-dark" />
+        </div>
+        <h3 class="text-lg font-semibold text-text-primary">Coming Soon</h3>
+        <p class="text-sm text-text-muted max-w-md mx-auto">
+          [Add PortSwigger Web Security Academy labs / CTF write-ups here as completed]
+        </p>
+        <div class="flex flex-wrap justify-center gap-2 pt-2">
+          <span class="font-mono text-[10px] px-3 py-1 rounded-full border border-border-subtle text-text-dark">
+            PortSwigger Labs
+          </span>
+          <span class="font-mono text-[10px] px-3 py-1 rounded-full border border-border-subtle text-text-dark">
+            TryHackMe
+          </span>
+          <span class="font-mono text-[10px] px-3 py-1 rounded-full border border-border-subtle text-text-dark">
+            HackTheBox
+          </span>
+          <span class="font-mono text-[10px] px-3 py-1 rounded-full border border-border-subtle text-text-dark">
+            CTF Competitions
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,87 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import { experience, education, certifications } from '../../data/portfolio';
+import { Briefcase, GraduationCap, Award } from '@lucide/astro';
+
+// Build the full timeline
+const timelineItems = [
+  ...experience.map((exp) => ({
+    date: exp.date,
+    title: exp.title,
+    subtitle: exp.organization,
+    description: exp.description,
+    type: 'training' as const,
+    sortYear: exp.year,
+  })),
+  {
+    date: '2025',
+    title: 'AI Fundamentals Digital Badge',
+    subtitle: 'IBM SkillsBuild',
+    description: 'Completed foundational AI training and earned digital badge.',
+    type: 'certification' as const,
+    sortYear: 2025,
+  },
+  {
+    date: `Expected ${education.expectedGraduation}`,
+    title: education.degree,
+    subtitle: education.institution,
+    description: `${education.location}`,
+    type: 'education' as const,
+    sortYear: 2027,
+  },
+].sort((a, b) => a.sortYear - b.sortYear);
+
+function getIcon(type: string) {
+  switch (type) {
+    case 'training': return 'briefcase';
+    case 'certification': return 'award';
+    case 'education': return 'graduation';
+    default: return 'briefcase';
+  }
+}
+---
+
+<section id="experience" class="py-20">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <SectionHeader title="Experience" subtitle="Training & Education Timeline" />
+
+    <div class="max-w-2xl mx-auto relative">
+      <!-- Vertical line -->
+      <div class="absolute left-4 sm:left-6 top-0 bottom-0 w-px bg-border-subtle"></div>
+
+      <div class="space-y-8">
+        {timelineItems.map((item, index) => (
+          <div class="relative pl-12 sm:pl-16">
+            <!-- Dot -->
+            <div class={`absolute left-2.5 sm:left-4.5 top-1 w-3 h-3 rounded-full border-2 ${
+              item.type === 'training'
+                ? 'border-accent-red bg-accent-red/20'
+                : item.type === 'certification'
+                  ? 'border-accent-cyan bg-accent-cyan/20'
+                  : 'border-green-500 bg-green-500/20'
+            }`}></div>
+
+            <!-- Content -->
+            <div class="glass-card rounded-lg p-4 hover:border-border-hover transition-colors duration-200">
+              <div class="flex items-center gap-2 mb-1">
+                <span class={`font-mono text-[10px] px-2 py-0.5 rounded-full border uppercase tracking-wider ${
+                  item.type === 'training'
+                    ? 'text-accent-red border-accent-red/30'
+                    : item.type === 'certification'
+                      ? 'text-accent-cyan border-accent-cyan/30'
+                      : 'text-green-400 border-green-400/30'
+                }`}>
+                  {item.type}
+                </span>
+                <span class="font-mono text-[10px] text-text-dark">{item.date}</span>
+              </div>
+              <h3 class="text-sm font-semibold text-text-primary">{item.title}</h3>
+              <p class="text-xs text-text-muted mt-0.5">{item.subtitle}</p>
+              <p class="text-xs text-text-secondary mt-2">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

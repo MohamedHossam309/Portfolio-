@@ -1,0 +1,123 @@
+---
+import { navLinks, personalInfo } from '../../data/portfolio';
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 border-b border-border-subtle bg-primary/80 backdrop-blur-xl" id="navbar">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded border border-accent-red flex items-center justify-center bg-accent-red/5 group-hover:bg-accent-red/10 transition-colors">
+          <span class="font-mono text-xs font-bold text-accent-red">{personalInfo.initials}</span>
+        </div>
+        <span class="font-mono text-sm text-text-primary hidden sm:inline">{personalInfo.shortName}</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden lg:flex items-center gap-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="nav-link px-3 py-2 rounded-md font-mono text-xs text-text-muted hover:text-text-primary hover:bg-secondary transition-colors duration-200"
+            data-section={link.href.replace('#', '')}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="lg:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+      >
+        <span class="block w-5 h-px bg-text-primary transition-all duration-300 origin-center" id="menu-line-1"></span>
+        <span class="block w-5 h-px bg-text-primary transition-all duration-300" id="menu-line-2"></span>
+        <span class="block w-5 h-px bg-text-primary transition-all duration-300 origin-center" id="menu-line-3"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-border-subtle bg-primary/95 backdrop-blur-xl">
+    <div class="container mx-auto px-4 py-4 space-y-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-nav-link block px-4 py-3 rounded-lg font-mono text-sm text-text-muted hover:text-text-primary hover:bg-secondary transition-colors duration-200"
+          data-section={link.href.replace('#', '')}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Mobile menu toggle
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const line1 = document.getElementById('menu-line-1');
+  const line2 = document.getElementById('menu-line-2');
+  const line3 = document.getElementById('menu-line-3');
+
+  let isOpen = false;
+
+  btn?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    menu?.classList.toggle('hidden', !isOpen);
+    btn?.setAttribute('aria-expanded', String(isOpen));
+
+    if (isOpen) {
+      line1!.style.transform = 'rotate(45deg) translate(2px, 4px)';
+      line2!.style.opacity = '0';
+      line3!.style.transform = 'rotate(-45deg) translate(2px, -4px)';
+    } else {
+      line1!.style.transform = '';
+      line2!.style.opacity = '1';
+      line3!.style.transform = '';
+    }
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      isOpen = false;
+      menu?.classList.add('hidden');
+      btn?.setAttribute('aria-expanded', 'false');
+      line1!.style.transform = '';
+      line2!.style.opacity = '1';
+      line3!.style.transform = '';
+    });
+  });
+
+  // Active section highlighting
+  const sections = document.querySelectorAll('section[id]');
+  const navLinksEl = document.querySelectorAll('.nav-link, .mobile-nav-link');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinksEl.forEach((link) => {
+            const section = link.getAttribute('data-section');
+            if (section === id) {
+              link.classList.add('text-accent-red');
+              link.classList.remove('text-text-muted');
+            } else {
+              link.classList.remove('text-accent-red');
+              link.classList.add('text-text-muted');
+            }
+          });
+        }
+      });
+    },
+    { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+</script>

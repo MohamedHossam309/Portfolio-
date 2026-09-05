@@ -1,0 +1,46 @@
+---
+import { personalInfo } from '../../data/portfolio';
+import { Mail, Heart } from '@lucide/astro';
+import Github from '../icons/Github.astro';
+import Linkedin from '../icons/Linkedin.astro';
+---
+
+<footer class="border-t border-border-subtle bg-secondary/30">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Left: Branding -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded border border-accent-red flex items-center justify-center bg-accent-red/5">
+          <span class="font-mono text-xs font-bold text-accent-red">{personalInfo.initials}</span>
+        </div>
+        <div>
+          <p class="font-mono text-sm text-text-primary">{personalInfo.shortName}</p>
+          <p class="font-mono text-[10px] text-text-dark uppercase tracking-wider">Security Researcher</p>
+        </div>
+      </div>
+
+      <!-- Center: Social links -->
+      <div class="flex items-center gap-4">
+        <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="text-text-dark hover:text-text-primary transition-colors">
+          <Github class="w-5 h-5" />
+        </a>
+        <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="text-text-dark hover:text-text-primary transition-colors">
+          <Linkedin class="w-5 h-5" />
+        </a>
+        <a href={`mailto:${personalInfo.email}`} aria-label="Email" class="text-text-dark hover:text-text-primary transition-colors">
+          <Mail class="w-5 h-5" />
+        </a>
+      </div>
+
+      <!-- Right: Copyright -->
+      <div class="text-center md:text-right">
+        <p class="font-mono text-xs text-text-dark">
+          &copy; {new Date().getFullYear()} {personalInfo.shortName}. All rights reserved.
+        </p>
+        <p class="font-mono text-[10px] text-text-dark mt-1 flex items-center justify-center md:justify-end gap-1">
+          Built with <Heart class="w-3 h-3 text-accent-red inline" /> and Astro
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

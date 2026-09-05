@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/astro/Navbar.astro';
+import Footer from '../components/astro/Footer.astro';
+import About from '../components/astro/About.astro';
+import Skills from '../components/astro/Skills.astro';
+import Certifications from '../components/astro/Certifications.astro';
+import Labs from '../components/astro/Labs.astro';
+import Writeups from '../components/astro/Writeups.astro';
+import Experience from '../components/astro/Experience.astro';
+import SectionHeader from '../components/astro/SectionHeader.astro';
+
+import Hero from '../components/react/Hero';
+import Methodology from '../components/react/Methodology';
+import Projects from '../components/react/Projects';
+import TerminalSection from '../components/react/TerminalSection';
+import ContactForm from '../components/react/ContactForm';
+import CustomCursor from '../components/react/CustomCursor';
+
+import { personalInfo } from '../data/portfolio';
+import { Mail, Phone, Download } from '@lucide/astro';
+import Github from '../components/icons/Github.astro';
+import Linkedin from '../components/icons/Linkedin.astro';
+
+export const prerender = true;
+---
+
+<BaseLayout>
+  <Navbar />
+  <CustomCursor client:load />
+
+  <main>
+    <!-- Hero -->
+    <Hero client:load />
+
+    <!-- About -->
+    <About />
+
+    <!-- Skills -->
+    <Skills />
+
+    <!-- Methodology -->
+    <section id="methodology" class="py-20 relative">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(34,211,238,0.03),transparent_50%)]"></div>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <SectionHeader title="Methodology" subtitle="Attack Lifecycle Framework (DEPI Training Track)" />
+        <Methodology client:visible />
+      </div>
+    </section>
+
+    <!-- Projects / Case Files -->
+    <section id="projects" class="py-20">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader title="Case Files" subtitle="Security-Minded Engineering & Assessments" />
+        <Projects client:visible />
+      </div>
+    </section>
+
+    <!-- Labs -->
+    <Labs />
+
+    <!-- Certifications -->
+    <Certifications />
+
+    <!-- Writeups -->
+    <Writeups />
+
+    <!-- Experience -->
+    <Experience />
+
+    <!-- Terminal -->
+    <section id="terminal" class="py-20 relative">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(220,38,38,0.04),transparent_50%)]"></div>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <SectionHeader title="Terminal" subtitle="Interactive Operator Profile" />
+        <TerminalSection client:visible />
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader title="Contact" subtitle="Let's Talk Security" />
+
+        <div class="grid lg:grid-cols-2 gap-10 max-w-4xl mx-auto">
+          <!-- Contact Info -->
+          <div class="space-y-6">
+            <p class="text-text-secondary leading-relaxed">
+              Interested in discussing cybersecurity, looking for a motivated intern, or want to collaborate on security research? I'd love to hear from you.
+            </p>
+
+            <div class="space-y-3">
+              <a href={`mailto:${personalInfo.email}`} class="flex items-center gap-3 glass-card rounded-lg px-4 py-3 hover:border-border-hover transition-colors group">
+                <Mail class="w-4 h-4 text-accent-red" />
+                <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">{personalInfo.email}</span>
+              </a>
+              <a href={`tel:${personalInfo.phone.replace(/\s/g, '')}`} class="flex items-center gap-3 glass-card rounded-lg px-4 py-3 hover:border-border-hover transition-colors group">
+                <Phone class="w-4 h-4 text-accent-red" />
+                <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">{personalInfo.phone}</span>
+              </a>
+              <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 glass-card rounded-lg px-4 py-3 hover:border-border-hover transition-colors group">
+                <Linkedin class="w-4 h-4 text-accent-red" />
+                <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">LinkedIn Profile</span>
+              </a>
+              <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 glass-card rounded-lg px-4 py-3 hover:border-border-hover transition-colors group">
+                <Github class="w-4 h-4 text-accent-red" />
+                <span class="text-sm text-text-secondary group-hover:text-text-primary transition-colors">GitHub Profile</span>
+              </a>
+            </div>
+
+            <!-- Resume download -->
+            <a href="/resume.pdf" download class="inline-flex items-center gap-2 px-5 py-2.5 bg-accent-red hover:bg-accent-red-dark text-white font-medium rounded-lg transition-colors duration-200 text-sm">
+              <Download class="w-4 h-4" />
+              Download Résumé
+            </a>
+          </div>
+
+          <!-- Contact Form -->
+          <ContactForm client:visible />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
