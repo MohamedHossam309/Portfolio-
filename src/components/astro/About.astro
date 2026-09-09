@@ -1,6 +1,7 @@
 ---
 import SectionHeader from './SectionHeader.astro';
 import Avatar from '../react/Avatar';
+import ScrollReveal from '../react/ScrollReveal';
 import { personalInfo, summary, missionStatement, education, securityProfile, languages } from '../../data/portfolio';
 import { MapPin, GraduationCap, Target, Globe } from '@lucide/astro';
 ---
@@ -12,7 +13,7 @@ import { MapPin, GraduationCap, Target, Globe } from '@lucide/astro';
 
     <div class="grid lg:grid-cols-5 gap-8">
       <!-- Left: Bio -->
-      <div class="lg:col-span-3 space-y-6">
+      <ScrollReveal client:visible className="lg:col-span-3 space-y-6" direction="up">
         <!-- Mission -->
         <div class="glass-card rounded-lg p-6">
           <blockquote class="text-xl sm:text-2xl font-semibold text-text-primary leading-relaxed border-l-2 border-accent-red pl-4">
@@ -66,11 +67,11 @@ import { MapPin, GraduationCap, Target, Globe } from '@lucide/astro';
             </div>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
 
       <!-- Right: Security Profile Card -->
-      <div class="lg:col-span-2 space-y-4">
-        <div class="glass-card rounded-lg p-6 space-y-5">
+      <ScrollReveal client:visible className="lg:col-span-2 space-y-4" direction="left" delay={0.12}>
+        <div class="glass-card scan-card rounded-lg p-6 space-y-5">
           <div class="flex items-center gap-3 mb-2">
             <Target class="w-5 h-5 text-accent-red" />
             <h3 class="font-mono text-sm text-text-primary uppercase tracking-wider">Security Profile</h3>
@@ -103,7 +104,7 @@ import { MapPin, GraduationCap, Target, Globe } from '@lucide/astro';
             </div>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
     </div>
   </div>
 </section>

@@ -1,5 +1,6 @@
 ---
 import SectionHeader from './SectionHeader.astro';
+import ScrollReveal from '../react/ScrollReveal';
 import { certifications, courses } from '../../data/portfolio';
 import { Award, BookOpen, ExternalLink } from '@lucide/astro';
 ---
@@ -9,7 +10,7 @@ import { Award, BookOpen, ExternalLink } from '@lucide/astro';
     <SectionHeader title="Certifications" subtitle="Verified Credentials & Training" />
 
     <!-- Certifications -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+    <ScrollReveal client:visible className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10" direction="up">
       {certifications.map((cert) => (
         <div class="glass-card glass-card-hover rounded-lg p-5 transition-colors duration-200">
           <div class="flex items-start gap-3">
@@ -32,10 +33,10 @@ import { Award, BookOpen, ExternalLink } from '@lucide/astro';
           </div>
         </div>
       ))}
-    </div>
+    </ScrollReveal>
 
     <!-- Courses sub-section -->
-    <div class="mt-8">
+    <ScrollReveal client:visible className="mt-8" direction="up" delay={0.08}>
       <div class="flex items-center gap-2 mb-4">
         <BookOpen class="w-4 h-4 text-accent-cyan" />
         <h3 class="font-mono text-sm text-text-primary uppercase tracking-wider">Completed Courses</h3>
@@ -51,6 +52,6 @@ import { Award, BookOpen, ExternalLink } from '@lucide/astro';
           </div>
         ))}
       </div>
-    </div>
+    </ScrollReveal>
   </div>
 </section>

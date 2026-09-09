@@ -19,12 +19,14 @@ export default function Avatar({ size = 'md', className = '' }: AvatarProps) {
   if (personalInfo.hasPhoto) {
     return (
       <div className={`relative ${s.container} ${className}`}>
-        <img
-          src={personalInfo.photoUrl}
-          alt={personalInfo.shortName}
-          className={`${s.container} rounded-lg object-cover border border-border-subtle`}
-          loading="eager"
-        />
+        <div className={`${s.container} avatar-scan-frame rounded-lg border border-border-subtle`}>
+          <img
+            src={personalInfo.photoUrl}
+            alt={personalInfo.shortName}
+            className={`${s.container} rounded-lg object-cover`}
+            loading="eager"
+          />
+        </div>
         <div className="absolute -top-0.5 -left-0.5 w-3 h-3 border-t border-l border-accent-red" />
         <div className="absolute -top-0.5 -right-0.5 w-3 h-3 border-t border-r border-accent-red" />
         <div className="absolute -bottom-0.5 -left-0.5 w-3 h-3 border-b border-l border-accent-red" />
@@ -36,7 +38,7 @@ export default function Avatar({ size = 'md', className = '' }: AvatarProps) {
   return (
     <div className={`relative ${s.container} ${className}`}>
       {/* Outer frame */}
-      <div className={`${s.container} rounded-lg border border-border-subtle bg-secondary flex items-center justify-center relative overflow-hidden`}>
+      <div className={`${s.container} avatar-scan-frame rounded-lg border border-border-subtle bg-secondary flex items-center justify-center relative overflow-hidden`}>
         {/* Subtle radial glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(220,38,38,0.1),transparent_70%)]" />
         {/* Initials */}

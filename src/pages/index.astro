@@ -16,6 +16,7 @@ import Projects from '../components/react/Projects';
 import TerminalSection from '../components/react/TerminalSection';
 import ContactForm from '../components/react/ContactForm';
 import CustomCursor from '../components/react/CustomCursor';
+import AnimatedKaliBackground from '../components/react/AnimatedKaliBackground';
 
 import { personalInfo } from '../data/portfolio';
 import { Mail, Phone, Download } from '@lucide/astro';
@@ -26,10 +27,13 @@ export const prerender = true;
 ---
 
 <BaseLayout>
+  <!-- Fixed Cinematic Kali Linux Animated Dragon Background -->
+  <AnimatedKaliBackground client:load />
+
   <Navbar />
   <CustomCursor client:load />
 
-  <main>
+  <main class="relative z-10">
     <!-- Hero -->
     <Hero client:load />
 

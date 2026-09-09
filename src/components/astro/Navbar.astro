@@ -14,7 +14,7 @@ import { navLinks, personalInfo } from '../../data/portfolio';
       </a>
 
       <!-- Desktop nav -->
-      <div class="hidden lg:flex items-center gap-1">
+      <div class="desktop-nav relative hidden lg:flex items-center gap-1">
         {navLinks.map((link) => (
           <a
             href={link.href}
@@ -24,6 +24,7 @@ import { navLinks, personalInfo } from '../../data/portfolio';
             {link.label}
           </a>
         ))}
+        <span id="desktop-nav-indicator" class="pointer-events-none absolute bottom-1 h-px rounded-full bg-accent-red opacity-0 transition-all duration-300"></span>
       </div>
 
       <!-- Mobile menu button -->
@@ -54,6 +55,10 @@ import { navLinks, personalInfo } from '../../data/portfolio';
       ))}
     </div>
   </div>
+
+  <div class="nav-progress-track" aria-hidden="true">
+    <div id="nav-progress-bar" class="nav-progress-bar"></div>
+  </div>
 </nav>
 
 <script>
@@ -63,8 +68,14 @@ import { navLinks, personalInfo } from '../../data/portfolio';
   const line1 = document.getElementById('menu-line-1');
   const line2 = document.getElementById('menu-line-2');
   const line3 = document.getElementById('menu-line-3');
+  const desktopNav = document.querySelector('.desktop-nav');
+  const desktopIndicator = document.getElementById('desktop-nav-indicator');
+  const progressBar = document.getElementById('nav-progress-bar');
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const navLinksEl = Array.from(document.querySelectorAll('.nav-link, .mobile-nav-link'));
 
   let isOpen = false;
+  let activeSectionId = sections[0]?.id ?? 'home';
 
   btn?.addEventListener('click', () => {
     isOpen = !isOpen;
@@ -94,30 +105,86 @@ import { navLinks, personalInfo } from '../../data/portfolio';
     });
   });
 
-  // Active section highlighting
-  const sections = document.querySelectorAll('section[id]');
-  const navLinksEl = document.querySelectorAll('.nav-link, .mobile-nav-link');
+  function updateIndicator(sectionId) {
+    if (!desktopNav || !desktopIndicator) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          navLinksEl.forEach((link) => {
-            const section = link.getAttribute('data-section');
-            if (section === id) {
-              link.classList.add('text-accent-red');
-              link.classList.remove('text-text-muted');
-            } else {
-              link.classList.remove('text-accent-red');
-              link.classList.add('text-text-muted');
-            }
-          });
-        }
-      });
-    },
-    { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
-  );
+    const activeDesktopLink = desktopNav.querySelector(`.nav-link[data-section="${sectionId}"]`);
 
-  sections.forEach((section) => observer.observe(section));
+    if (!(activeDesktopLink instanceof HTMLElement)) {
+      desktopIndicator.style.opacity = '0';
+      return;
+    }
+
+    const navRect = desktopNav.getBoundingClientRect();
+    const linkRect = activeDesktopLink.getBoundingClientRect();
+
+    desktopIndicator.style.opacity = '1';
+    desktopIndicator.style.left = `${linkRect.left - navRect.left + 8}px`;
+    desktopIndicator.style.width = `${Math.max(20, linkRect.width - 16)}px`;
+  }
+
+  function updateProgressBar() {
+    if (!progressBar) return;
+
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+    progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+  }
+
+  function findActiveSectionId() {
+    const probe = window.scrollY + window.innerHeight * 0.35;
+    let currentId = sections[0]?.id ?? 'home';
+
+    for (const section of sections) {
+      const start = section.offsetTop;
+      const end = start + section.offsetHeight;
+
+      if (probe >= start && probe < end) {
+        return section.id;
+      }
+
+      if (probe >= start) {
+        currentId = section.id;
+      }
+    }
+
+    return currentId;
+  }
+
+  function syncNavState() {
+    activeSectionId = findActiveSectionId();
+
+    navLinksEl.forEach((link) => {
+      const isActive = link.getAttribute('data-section') === activeSectionId;
+      link.classList.toggle('text-accent-red', isActive);
+      link.classList.toggle('text-text-muted', !isActive);
+
+      if (isActive) {
+        link.setAttribute('aria-current', 'true');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+
+    updateIndicator(activeSectionId);
+    updateProgressBar();
+  }
+
+  let isTicking = false;
+
+  const requestSync = () => {
+    if (isTicking) return;
+
+    isTicking = true;
+    requestAnimationFrame(() => {
+      syncNavState();
+      isTicking = false;
+    });
+  };
+
+  syncNavState();
+
+  window.addEventListener('scroll', requestSync, { passive: true });
+  window.addEventListener('resize', requestSync);
+  window.addEventListener('load', requestSync);
 </script>

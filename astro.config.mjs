@@ -8,4 +8,9 @@ export default defineConfig({
   output: 'static',
   adapter: cloudflare(),
   integrations: [react()],
+  vite: {
+    optimizeDeps: {
+      exclude: ['@astrojs/cloudflare'],
+    },
+  },
 });

@@ -1,5 +1,6 @@
 ---
 import SectionHeader from './SectionHeader.astro';
+import ScrollReveal from '../react/ScrollReveal';
 import { technicalSkills, softSkills } from '../../data/portfolio';
 import { Network, Monitor, Code, Wrench, Brain } from '@lucide/astro';
 
@@ -16,7 +17,7 @@ const iconMap: Record<string, any> = {
     <SectionHeader title="Skills" subtitle="Technical Capabilities & Competencies" />
 
     <!-- Technical Skills -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <ScrollReveal client:visible className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" direction="up">
       {technicalSkills.map((skill) => {
         const IconComponent = iconMap[skill.icon] || Code;
         return (
@@ -44,10 +45,10 @@ const iconMap: Record<string, any> = {
           </div>
         );
       })}
-    </div>
+    </ScrollReveal>
 
     <!-- Soft Skills -->
-    <div class="glass-card rounded-lg p-5">
+    <ScrollReveal client:visible className="glass-card rounded-lg p-5" direction="up" delay={0.08}>
       <div class="flex items-center gap-2 mb-4">
         <Brain class="w-4 h-4 text-accent-cyan" />
         <h3 class="font-mono text-sm text-text-primary">Soft Skills</h3>
@@ -59,6 +60,6 @@ const iconMap: Record<string, any> = {
           </span>
         ))}
       </div>
-    </div>
+    </ScrollReveal>
   </div>
 </section>

@@ -1,5 +1,6 @@
 ---
 import SectionHeader from './SectionHeader.astro';
+import ScrollReveal from '../react/ScrollReveal';
 import { experience, education, certifications } from '../../data/portfolio';
 import { Briefcase, GraduationCap, Award } from '@lucide/astro';
 
@@ -45,7 +46,7 @@ function getIcon(type: string) {
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <SectionHeader title="Experience" subtitle="Training & Education Timeline" />
 
-    <div class="max-w-2xl mx-auto relative">
+    <ScrollReveal client:visible className="max-w-2xl mx-auto relative" direction="up">
       <!-- Vertical line -->
       <div class="absolute left-4 sm:left-6 top-0 bottom-0 w-px bg-border-subtle"></div>
 
@@ -82,6 +83,6 @@ function getIcon(type: string) {
           </div>
         ))}
       </div>
-    </div>
+    </ScrollReveal>
   </div>
 </section>

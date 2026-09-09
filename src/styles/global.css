@@ -26,6 +26,18 @@
   --animate-slide-up: slide-up 0.6s ease-out forwards;
   --animate-scan-line: scan-line 3s linear infinite;
   --animate-typing-cursor: typing-cursor 1s step-end infinite;
+  --animate-kali-breathe: kali-breathe 8s ease-in-out infinite;
+
+  @keyframes kali-breathe {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+      opacity: 0.22;
+    }
+    50% {
+      transform: translateY(-6px) scale(1.012);
+      opacity: 0.28;
+    }
+  }
 
   @keyframes status-pulse {
     0%, 100% { opacity: 1; }
@@ -121,6 +133,81 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.scan-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+  background-size: 100% 6px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.scan-card::after {
+  content: '';
+  position: absolute;
+  inset: -35% 0 auto;
+  height: 35%;
+  background: linear-gradient(
+    180deg,
+    rgba(34, 211, 238, 0),
+    rgba(34, 211, 238, 0.08) 35%,
+    rgba(220, 38, 38, 0.18) 50%,
+    rgba(34, 211, 238, 0.08) 65%,
+    rgba(34, 211, 238, 0)
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: scan-line 4.2s linear infinite;
+}
+
+.avatar-scan-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-scan-frame::after {
+  content: '';
+  position: absolute;
+  inset: -30% 0 auto;
+  height: 30%;
+  background: linear-gradient(
+    180deg,
+    rgba(220, 38, 38, 0),
+    rgba(220, 38, 38, 0.12) 45%,
+    rgba(248, 250, 252, 0.18) 50%,
+    rgba(220, 38, 38, 0.12) 55%,
+    rgba(220, 38, 38, 0)
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: scan-line 3.6s linear infinite;
+}
+
+.nav-progress-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: rgba(30, 41, 59, 0.9);
+  overflow: hidden;
+}
+
+.nav-progress-bar {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, rgba(220, 38, 38, 0.95), rgba(34, 211, 238, 0.85));
+  transition: transform 160ms linear;
 }
 
 /* ── Reduced Motion ── */
